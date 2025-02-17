@@ -3,7 +3,7 @@ import React from 'react'
 function DashboardContent() {
   return (
     
-    <div className="flex flex-col ">
+    <div className="flex flex-col py-8 md:py-0">
      
    
 
