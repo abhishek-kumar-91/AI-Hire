@@ -15,11 +15,11 @@ export default function HeroComponent() {
         </p>
 
         {/* CTA Buttons */}
-        <div className="mt-6 space-x-4">
-          <a href="/signup" className="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700">
+        <div className="mt-6 space-x-4 flex flex-col">
+          <a href="/signup" className="bg-blue-600 text-white w-full md:w-1/2 text-center py-3 rounded-lg text-lg font-semibold hover:bg-blue-700">
             Get Started for Free
           </a>
-          <button className="border border-gray-800 text-gray-800 px-6 py-3 rounded-lg text-lg font-semibold hover:bg-gray-100">
+          <button className="border md:w-1/2  border-gray-800 text-gray-800 px-6 py-3 mt-4 rounded-lg text-lg font-semibold hover:bg-gray-100">
             Watch Demo
           </button>
         </div>

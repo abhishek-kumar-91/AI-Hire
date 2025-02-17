@@ -10,7 +10,7 @@ const AuthPage = ({ type }) => {
   return (
     <>
     <NavbarComponent />
-    <div className="flex min-h-screen items-center justify-center md:py-28 px-16 py-32 bg-gray-100">
+    <div className="flex min-h-screen items-center justify-center md:py-28 px-4 py-32 bg-gray-100">
       <div className="w-full max-w-4xl flex flex-col md:flex-row bg-white shadow-lg rounded-lg overflow-hidden">
         {/* Left Section - Form */}
         <div className="w-full md:w-1/2 p-8">
