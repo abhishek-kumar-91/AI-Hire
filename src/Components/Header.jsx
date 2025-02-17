@@ -29,8 +29,8 @@ export default function Header({ isSidebarOpen, setSidebarOpen }) {
     {
       isOpen && <div className={`fixed inset-y-14 right-0 bg-white shadow-2xl h-30 ${isOpen ? "translate-x-0" : "-translate-x-full"}  transition-transform duration-300 ease-in-out`}>
       <div className="flex flex-col gap-2 p-4">
-      <button className="px-4 py-2 border-b-2 border-blue-500 cursor-pointer hover:bg-gray-400 duration-300 transition-all">Profile Setting</button>
-      <button className="px-4 py-2 rounded-sm bg-red-500 cursor-pointer text-white hover:bg-red-400 duration-300 transition-all">Logout</button>
+      <button className="px-4 py-2 border-b-2 border-gray-200 cursor-pointer hover:bg-gray-200 duration-300 transition-all">Profile Setting</button>
+      <button className="px-4 py-2 rounded-sm bg-red-500 cursor-pointer text-white hover:bg-red-600 duration-300 transition-all">Logout</button>
       </div>
     </div>
     }

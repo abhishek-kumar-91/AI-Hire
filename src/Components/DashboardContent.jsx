@@ -3,7 +3,7 @@ import React from 'react'
 function DashboardContent() {
   return (
     
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex flex-col ">
      
    
 
@@ -24,14 +24,34 @@ function DashboardContent() {
         </div>
 
         {/* Job Suggestions */}
-        <div className="p-6">
+        <div className="p-6 flex flex-col gap-4 ">
           <h3 className="text-xl font-bold mb-4">AI-Powered Job Suggestions</h3>
           <div className="bg-white p-4 rounded-md shadow-md">
             <p className="text-lg font-semibold">Frontend Developer - Google</p>
             <p className="text-gray-600">Remote | Full-time</p>
             <button className="mt-3 bg-blue-500 text-white px-4 py-2 rounded-md">Apply Now</button>
           </div>
+
+          <div className="bg-white p-4 rounded-md shadow-md">
+            <p className="text-lg font-semibold">Frontend Developer - Google</p>
+            <p className="text-gray-600">Remote | Full-time</p>
+            <button className="mt-3 bg-blue-500 text-white px-4 py-2 rounded-md">Apply Now</button>
+          </div>
+
+          <div className="bg-white p-4 rounded-md shadow-md">
+            <p className="text-lg font-semibold">Frontend Developer - Google</p>
+            <p className="text-gray-600">Remote | Full-time</p>
+            <button className="mt-3 bg-blue-500 text-white px-4 py-2 rounded-md">Apply Now</button>
+          </div>
+
+          <div className="bg-white p-4 rounded-md shadow-md">
+            <p className="text-lg font-semibold">Frontend Developer - Google</p>
+            <p className="text-gray-600">Remote | Full-time</p>
+            <button className="mt-3 bg-blue-500 text-white px-4 py-2 rounded-md">Apply Now</button>
+          </div>
         </div>
+
+        
     
   </div>
 
