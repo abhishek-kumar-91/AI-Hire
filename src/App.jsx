@@ -17,7 +17,7 @@ function App() {
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<LandingPage />} />
-        <Route path="/signin" element={<AuthPage type="signin" />} />
+        <Route path="/login" element={<AuthPage type="signin" />} />
         <Route path="/signup" element={<AuthPage type="signup" />} />
         
         {/* Protected Route - Dashboard and its pages */}
