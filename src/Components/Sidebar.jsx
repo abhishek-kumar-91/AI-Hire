@@ -5,7 +5,7 @@ import { CiCircleRemove } from "react-icons/ci";
 export default function Sidebar({ isSidebarOpen, setSidebarOpen }) {
   return (
     <div
-      className={`fixed inset-y-0 left-0 transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out bg-white w-64 p-5 shadow-lg z-50 md:relative md:translate-x-0 md:w-1/5 md:flex md:flex-col md:h-full`}
+      className={`fixed inset-y-0 left-0 transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out bg-white w-64 p-5 shadow-lg z-50  md:translate-x-0 md:w-1/5 md:fixed md:flex md:flex-col md:h-full`}
     >
       {/* Add Hamburger Button for Mobile */}
       <button

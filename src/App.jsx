@@ -1,5 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import ProtectedRoute from "./Components/ProtectedRoute"; // Assuming this is your authentication guard
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Assuming this is your authentication guard
 import DashboardPage from "./Pages/Dashboard/DashboardPage";
 import JobPage from "./Pages/Job/JobPage";
 import JobDetailsPage from "./Pages/JobDetailsPage/JobDetailsPage";
@@ -22,8 +21,9 @@ function App() {
         <Route path="/signup" element={<AuthPage type="signup" />} />
         
         {/* Protected Route - Dashboard and its pages */}
+       
         <Route path="/dashboard" element={<DashboardPage />}>
-        <Route path="" element={<DashboardContent />} >
+        <Route index element={<DashboardContent />} />  
           <Route path="jobs" element={<JobPage />} />
           <Route path="details-page" element={<JobDetailsPage />} />
           <Route path="hr" element={<HRExtractionPage />} />
@@ -32,7 +32,7 @@ function App() {
           <Route path="resume-analyze" element={<ResumeAnalyzePage />} />
           <Route path="setting" element={<SettingPage />} />
           </Route>
-        </Route>
+        
       </Routes>
     </Router>
   );

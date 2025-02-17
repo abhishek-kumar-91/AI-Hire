@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Editor } from "@tinymce/tinymce-react";
+// import { Editor } from "@tinymce/tinymce-react";
 import { FaEye, FaPaperPlane, FaClock, FaRobot } from "react-icons/fa";
 
 const EmailOutreachPage = () => {
@@ -44,7 +44,7 @@ const EmailOutreachPage = () => {
       </button>
 
       {/* Email Editor */}
-      <div className="bg-white shadow-lg p-4 rounded-lg mb-4">
+      {/* <div className="bg-white shadow-lg p-4 rounded-lg mb-4">
         <h3 className="text-lg font-semibold mb-2">Email Editor</h3>
         <Editor
           apiKey="your-tinymce-api-key" // You can get your API key from the TinyMCE website
@@ -68,7 +68,7 @@ const EmailOutreachPage = () => {
           }}
           onEditorChange={handleEditorChange}
         />
-      </div>
+      </div> */}
 
       {/* Action Buttons */}
       <div className="flex gap-4 mb-4">
