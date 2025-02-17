@@ -6,7 +6,7 @@ import { useState } from "react";
 export default function DashboardPage() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   return (
-    <div className="flex h-auto bg-gray-100">
+    <div className="flex  bg-gray-100">
      {/* Your Sidebar */}
      <Sidebar isSidebarOpen={isSidebarOpen} setSidebarOpen={setSidebarOpen} /> 
       <div className="flex-1 flex flex-col">

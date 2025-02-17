@@ -22,7 +22,7 @@ const JobPage = () => {
 
   return (
 
-    <div className="md:-w-full mt-16 h-auto md:justify-end bg-gray-100 md:flex md:my-16">
+    <div className="md:-w-full mt-16 h-screen md:justify-end bg-gray-100 md:flex md:my-16">
 
    
         <div className="p-2   flex flex-col ">
