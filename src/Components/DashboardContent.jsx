@@ -2,6 +2,8 @@ import React from 'react'
 
 function DashboardContent() {
   return (
+    <div className='md:flex md:justify-center md:w-full md:my-16'>
+
     
     <div className="flex flex-col py-8 md:py-0">
      
@@ -54,7 +56,7 @@ function DashboardContent() {
         
     
   </div>
-
+</div>
   )
 }
 
