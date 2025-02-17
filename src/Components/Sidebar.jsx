@@ -17,32 +17,56 @@ export default function Sidebar({ isSidebarOpen, setSidebarOpen }) {
       </button>
 
       <h2 className="text-xl font-semibold text-gray-800">Dashboard</h2>
-      <ul className="mt-6 space-y-4">
-        <li>
+      <div className="flex flex-col gap-2 py-8">
+        <Link
+            to="/dashboard"
+            className="p-2 bg-gray-200 rounded-md cursor-pointer hover:bg-gray-300 transition-colors"
+          >
+            Home
+          </Link>
           <Link
             to="/dashboard/jobs"
             className="p-2 bg-gray-200 rounded-md cursor-pointer hover:bg-gray-300 transition-colors"
           >
-            Jobs
+           Finding Jobs
           </Link>
-        </li>
-        <li>
-          <Link
+        <Link
+            to="/dashboard/hr"
+            className="p-2 bg-gray-200 rounded-md cursor-pointer hover:bg-gray-300 transition-colors"
+          >
+            HR Email Finding
+          </Link>
+        <Link
+            to="/dashboard/email-outreach"
+            className="p-2 bg-gray-200 rounded-md cursor-pointer hover:bg-gray-300 transition-colors"
+          >
+            AI Automate Email Sending
+          </Link>
+        <Link
             to="/dashboard/applications"
             className="p-2 bg-gray-200 rounded-md cursor-pointer hover:bg-gray-300 transition-colors"
           >
-            Applications
+           Application History
           </Link>
-        </li>
-        <li>
           <Link
-            to="/dashboard/profile"
+            to="/dashboard/resume-analyze"
             className="p-2 bg-gray-200 rounded-md cursor-pointer hover:bg-gray-300 transition-colors"
           >
-            Profile
+           AI Resume Analyze
           </Link>
-        </li>
-      </ul>
+          <Link
+            to="/dashboard/setting"
+            className="p-2 bg-gray-200 rounded-md cursor-pointer hover:bg-gray-300 transition-colors"
+          >
+           Profile Setting
+          </Link>
+          <Link
+            to="/"
+            className="p-2 text-white bg-red-500 rounded-md cursor-pointer hover:bg-red-600 transition-colors"
+          >
+           Logout
+          </Link>
+          </div>
     </div>
   );
 }
