@@ -32,7 +32,8 @@ const EmailOutreachPage = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="  flex justify-center md:ml-24 bg-gray-100 mt-16 md:h-screen">
+    <div className="md:w-[80%] max-w-4xl md:flex md:flex-col p-6">
       <h2 className="text-2xl font-bold mb-4">Automated Email Outreach</h2>
 
       {/* AI Cover Letter Generator */}
@@ -93,8 +94,9 @@ const EmailOutreachPage = () => {
       </div>
 
       {/* Preview Mode */}
+      
       {previewMode && (
-        <div className="bg-gray-100 p-4 rounded-lg border border-gray-300">
+        <div >
           <h3 className="text-lg font-semibold mb-2">Preview</h3>
           <div
             dangerouslySetInnerHTML={{ __html: emailContent }}
@@ -102,6 +104,7 @@ const EmailOutreachPage = () => {
           />
         </div>
       )}
+      
 
       {/* Status Tracker */}
       <div className="mt-6">
@@ -130,6 +133,7 @@ const EmailOutreachPage = () => {
           <p className="text-gray-600">No emails sent yet.</p>
         )}
       </div>
+    </div>
     </div>
   );
 };
