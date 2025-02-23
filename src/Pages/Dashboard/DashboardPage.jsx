@@ -3,6 +3,7 @@ import Sidebar from "../../Components/Sidebar";
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
 
+
 export default function DashboardPage() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   return (

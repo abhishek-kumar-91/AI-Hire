@@ -22,7 +22,7 @@ export default function NavbarComponent
         
         {/* CTA Buttons */}
         <div className="hidden md:flex md:items-center space-x-4">
-          <a href="/signin" className="text-gray-600 hover:text-blue-600">Login</a>
+          <a href="/login" className="text-gray-600 hover:text-blue-600">Login</a>
           <a href="/signup" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
             Sign Up
           </a>
