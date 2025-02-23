@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext"; // Import AuthProvider
-import PrivateRoute from "./components/PrivateRoute"; // Import PrivateRoute
-import PublicRoute from "./components/PublicRoute"; // Import PublicRoute
+import PrivateRoute from "./Components/PrivateRoute"; // Import PrivateRoute
+import PublicRoute from "./Components/PublicRoute"; // Import PublicRoute
 import DashboardPage from "./Pages/Dashboard/DashboardPage";
 import JobPage from "./Pages/Job/JobPage";
 import JobDetailsPage from "./Pages/JobDetailsPage/JobDetailsPage";
