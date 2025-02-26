@@ -7,7 +7,6 @@ import JobPage from "./Pages/Job/JobPage";
 import JobDetailsPage from "./Pages/JobDetailsPage/JobDetailsPage";
 import HRExtractionPage from "./Pages/HRExtraction/HRExtractionPage";
 import EmailOutreachPage from "./Pages/AutoReach/EmailOutreachPage";
-import ApplicationPage from "./Pages/ApplicationPage/ApplicationPage";
 import ResumeAnalyzePage from "./Pages/ResumeAnalyze/ResumeAnalyzePage";
 import SettingPage from "./Pages/Setting/SettingPage";
 import LandingPage from "./LandingPage/LandingPage";
@@ -37,7 +36,6 @@ function App() {
               <Route path="details-page" element={<JobDetailsPage />} />
               <Route path="hr" element={<HRExtractionPage />} />
               <Route path="email-outreach" element={<EmailOutreachPage />} />
-              <Route path="applications" element={<ApplicationPage />} />
               <Route path="resume-analyze" element={<ResumeAnalyzePage />} />
               <Route path="setting" element={<SettingPage />} />
               {/* Catch-all for /dashboard/* */}

@@ -1,6 +1,8 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import apiClient from '../api/apiClient';
+
 
 export const AuthContext = createContext();
 
@@ -49,11 +51,8 @@ export const AuthProvider = ({ children }) => {
     const refreshToken = localStorage.getItem("refreshToken");
 
     try {
-      await axios.post(
-        "http://localhost:3000/api/users/logout",
-        { refreshToken },
-        { headers: { Authorization: `Bearer ${accessToken}` } }
-      );
+      await apiClient.post("/users/logout", { refreshToken });
+      
     } catch (error) {
       console.error("Logout API call failed:", error);
     } finally {
@@ -73,7 +72,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/api/users/refresh-token", {
+      const response = await apiClient.post("/users/refresh-token", {
         refreshToken,
       });
       const { accessToken } = response.data;

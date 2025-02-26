@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaCopy, FaDownload } from "react-icons/fa";
 import axios from "axios";
 import { toast } from "react-toastify";
+import apiClient from '../../api/apiClient';
 
 const HRExtractionPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -13,8 +14,14 @@ const HRExtractionPage = () => {
   // Fetch recommendations from API
   useEffect(() => {
     if (searchTerm.length > 2) {
-      axios
-        .get(`http://localhost:3000/api/users/search?query=${searchTerm}&page=1&limit=5`)
+      apiClient
+        .get('/users/search', {
+          params: {
+            query: searchTerm,
+            page: 1,
+            limit: 5,
+          },
+        })
         .then((res) => {
           setSuggestions(res.data.hrDetails || []);
           setShowDropdown(true); // Show dropdown when searching
@@ -68,79 +75,98 @@ const HRExtractionPage = () => {
 
   return (
     <div className="flex justify-center bg-gray-100 mt-16 md:h-screen">
-      <div className="max-w-5xl mx-auto p-6 md:w-[60%]">
-        <h2 className="text-2xl font-bold mb-4">Extract HR Emails</h2>
-        <div className="flex flex-col gap-4 mb-6 md:w-full">
-          <div className="relative md:flex items-center gap-4 md:w-full">
-            <input
-              type="text"
-              placeholder="Enter HR Name or Company..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full md:w-[90%] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            {showDropdown && suggestions.length > 0 && (
-              <ul className="absolute top-12 left-0 w-full md:w-[90%] bg-white border border-gray-300 rounded-lg shadow-lg max-h-48 overflow-auto z-10">
-                {suggestions.map((item) => (
-                  <li
-                    key={item.email}
-                    onClick={() => {
-                      setSelectedSuggestion(item.name);
-                      setSearchTerm(item.name);
-                      setShowDropdown(false); // Close dropdown only when selecting an item
-                    }}
-                    className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
-                  >
-                    {item.name} - {item.company}
-                  </li>
-                ))}
-              </ul>
-            )}
-            <button
-              onClick={extractEmails}
-              disabled={!selectedSuggestion}
-              className="bg-blue-600 cursor-pointer mt-3 md:mt-0 w-[60%] py-2 text-white px-6 rounded-lg hover:bg-blue-700 transition disabled:bg-gray-400"
-            >
-              Extract Emails
-            </button>
-          </div>
-        </div>
+      <div className="max-w-5xl md:ml-[22%] mx-auto p-6 md:p-8 md:w-[80%]">
+        <div className="bg-white p-6 rounded-xl shadow-lg max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold mb-6 text-gray-800 text-center">Extract HR Emails</h2>
 
-        {emails.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {emails.map((item) => (
-              <div key={item.email} className="bg-white shadow-lg rounded-lg p-4">
-                <h3 className="text-lg font-semibold mb-2">{item.name}</h3>
-                <p className="text-sm text-gray-600 mb-2">Email: {item.email}</p>
-                <p className="text-sm text-gray-600 mb-2">Job Title: {item.job}</p>
-                <p className="text-sm text-gray-600 mb-2">Source: {item.source}</p>
-                <button
-                  onClick={() => copyToClipboard(item.email)}
-                  className="text-blue-500 hover:text-blue-700 cursor-pointer"
-                >
-                  <FaCopy className="inline-block mr-1" /> Copy Email
-                </button>
+          {/* Search and Extract Section */}
+          <div className="flex flex-col gap-6 mb-8">
+            <div className="relative">
+              <label className="block text-lg font-semibold mb-2 text-gray-700">Search HR Name or Company</label>
+              <div className="flex items-center gap-4">
+                <input
+                  type="text"
+                  placeholder="Enter HR Name or Company..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                />
+                {showDropdown && suggestions.length > 0 && (
+                  <ul className="absolute top-20 left-0 w-full bg-white border border-gray-300 rounded-lg shadow-lg max-h-48 overflow-auto z-10">
+                    {suggestions.map((item) => (
+                      <li
+                        key={item.email}
+                        onClick={() => {
+                          setSelectedSuggestion(item.name);
+                          setSearchTerm(item.name);
+                          setShowDropdown(false); // Close dropdown only when selecting an item
+                        }}
+                        className="px-4 py-2 hover:bg-gray-200 cursor-pointer transition"
+                      >
+                        <span className="font-medium text-gray-800">{item.name}</span> - <span className="text-gray-600">{item.company}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
-            ))}
+              <button
+                onClick={extractEmails}
+                disabled={!selectedSuggestion}
+                className={`mt-4 w-full md:w-auto px-6 py-3 rounded-lg text-white font-semibold transition transform hover:scale-105 ${
+                  !selectedSuggestion ? "bg-gray-400 cursor-not-allowed" : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
+                }`}
+              >
+                Extract Emails
+              </button>
+            </div>
           </div>
-        )}
 
-        {emails.length > 0 && (
-          <div className="mt-4 flex flex-col sm:flex-row gap-4">
-            <button
-              onClick={exportAsJson}
-              className="flex items-center cursor-pointer bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
-            >
-              <FaDownload className="mr-2" /> Export JSON
-            </button>
-            <button
-              onClick={exportAsCsv}
-              className="flex items-center cursor-pointer bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition"
-            >
-              <FaDownload className="mr-2" /> Export CSV
-            </button>
-          </div>
-        )}
+          {/* Email Cards */}
+          {emails.length > 0 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
+              {emails.map((item) => (
+                <div
+                  key={item.email}
+                  className="bg-white shadow-lg rounded-xl p-4 hover:shadow-xl transition-shadow duration-300"
+                >
+                  <h3 className="text-lg font-semibold mb-2 text-gray-800">{item.name}</h3>
+                  <p className="text-sm text-gray-600 mb-2">Email: {item.email}</p>
+                  <p className="text-sm text-gray-600 mb-2">Job Title: {item.job}</p>
+                  <p className="text-sm text-gray-600 mb-2">Source: {item.source}</p>
+                  <button
+                    onClick={() => copyToClipboard(item.email)}
+                    className="text-blue-500 hover:text-blue-700 cursor-pointer flex items-center gap-1 transition"
+                  >
+                    <FaCopy className="inline-block mr-1" /> Copy Email
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Export Buttons */}
+          {emails.length > 0 && (
+            <div className="mt-6 flex flex-col sm:flex-row gap-4">
+              <button
+                onClick={exportAsJson}
+                className="flex items-center bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition transform hover:scale-105"
+              >
+                <FaDownload className="mr-2" /> Export JSON
+              </button>
+              <button
+                onClick={exportAsCsv}
+                className="flex items-center bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition transform hover:scale-105"
+              >
+                <FaDownload className="mr-2" /> Export CSV
+              </button>
+            </div>
+          )}
+
+          {/* No Results Message */}
+          {emails.length === 0 && selectedSuggestion && (
+            <p className="text-gray-600 text-sm mt-4">No HR emails found for this search.</p>
+          )}
+        </div>
       </div>
     </div>
   );
