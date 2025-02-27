@@ -1,15 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
-import axios from "axios";
+import apiClient from "../../api/apiClient";
 import NavbarComponent from "../../Components/NavbarComponent";
 import { FaGoogle, FaLinkedinIn } from "react-icons/fa";
-import { AuthContext } from "../../context/AuthContext"; // Import AuthContext
+import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
+import { GoogleLogin } from '@react-oauth/google'; // Add Google Sign-In library
 
 const AuthPage = ({ type }) => {
   const isSignIn = type === "signin";
   const navigate = useNavigate();
-  const { login, isAuthenticated } = useContext(AuthContext); // Use AuthContext
+  const { login, isAuthenticated } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
     fullname: "",
@@ -19,7 +20,6 @@ const AuthPage = ({ type }) => {
   });
   const [loading, setLoading] = useState(false);
 
-  // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
       navigate("/dashboard");
@@ -35,10 +35,7 @@ const AuthPage = ({ type }) => {
     setLoading(true);
 
     try {
-      const url = isSignIn
-        ? "http://localhost:3000/api/users/signin"
-        : "http://localhost:3000/api/users/signup";
-
+      const endpoint = isSignIn ? "/users/signin" : "/users/signup";
       const payload = isSignIn
         ? { email: formData.email, password: formData.password }
         : {
@@ -56,15 +53,8 @@ const AuthPage = ({ type }) => {
         return;
       }
 
-      const response = await axios.post(url, payload);
-
-      // Use AuthContext login function
-      login(
-        response.data.user,
-        response.data.accessToken,
-        response.data.refreshToken
-      );
-
+      const response = await apiClient.post(endpoint, payload);
+      login(response.data.user, response.data.accessToken, response.data.refreshToken);
       toast.success(response.data.message, {
         position: "top-right",
         autoClose: 2000,
@@ -73,6 +63,31 @@ const AuthPage = ({ type }) => {
     } catch (err) {
       toast.error(
         err.response?.data?.message || "Something went wrong. Please try again.",
+        {
+          position: "top-right",
+          autoClose: 3000,
+        }
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async (credentialResponse) => {
+    setLoading(true);
+    try {
+      const response = await apiClient.post('/users/google-auth', {
+        idToken: credentialResponse.credential,
+      });
+      login(response.data.user, response.data.accessToken, response.data.refreshToken);
+      toast.success(response.data.message, {
+        position: "top-right",
+        autoClose: 2000,
+        onClose: () => navigate("/dashboard"),
+      });
+    } catch (err) {
+      toast.error(
+        err.response?.data?.message || "Google login failed. Please try again.",
         {
           position: "top-right",
           autoClose: 3000,
@@ -184,23 +199,35 @@ const AuthPage = ({ type }) => {
             </form>
 
             <div className="mt-4 text-center">
-              <p className="text-gray-500">Or continue with</p>
-              <div className="flex space-x-4 mt-2">
-                <button className="w-full flex gap-2 items-center justify-center border py-2 rounded-lg hover:bg-gray-100">
-                  <FaGoogle className="text-red-500" />
-                  Google
-                </button>
-                <button className="w-full flex gap-2 items-center justify-center border py-2 rounded-lg hover:bg-gray-100">
-                  <FaLinkedinIn className="text-blue-500" />
-                  LinkedIn
-                </button>
+              <p className="text-gray-500 ">Or continue with</p>
+              <div className="flex justify-center space-x-4 mt-2">
+                <GoogleLogin
+                  onSuccess={handleGoogleLogin}
+                  onError={() => {
+                    toast.error("Google login failed. Please try again.", {
+                      position: "top-right",
+                      autoClose: 3000,
+                    });
+                  }}
+                  render={(renderProps) => (
+                    <button
+                      onClick={renderProps.onClick}
+                      disabled={renderProps.disabled || loading}
+                      className="w-full px-auto  flex gap-2 items-center justify-center border py-2 rounded-lg hover:bg-gray-100 disabled:opacity-50"
+                    >
+                      <FaGoogle className="text-red-500" />
+                      Google
+                    </button>
+                  )}
+                />
+               
               </div>
             </div>
 
             <p className="mt-4 text-center text-gray-600">
               {isSignIn ? "Don't have an account?" : "Already have an account?"}{" "}
               <Link
-                to={isSignIn ? "/signup" : "/signin"}
+                to={isSignIn ? "/signup" : "/login"}
                 className="text-blue-500 font-semibold"
               >
                 {isSignIn ? "Sign Up" : "Log In"}
